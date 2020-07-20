@@ -34,45 +34,6 @@ Set a keymap to insert emojis
 #+END_SRC
 ** Reading
 Use emacs for reading stuff
-#+BEGIN_SRC elisp :tangle yes
-
-(use-package! xkcd
-  :commands (xkcd-get-json xkcd-download xkcd-get
-             ;; now for funcs from my extension of this pkg
-             +xkcd-find-and-copy +xkcd-find-and-view
-             +xkcd-fetch-info +xkcd-select)
-  :config
-  (add-to-list 'evil-snipe-disabled-modes 'xkcd-mode)
-  :general (:states 'normal
-            :keymaps 'xkcd-mode-map
-            "<right>" #'xkcd-next
-            "n"       #'xkcd-next ; evil-ish
-            "<left>"  #'xkcd-prev
-            "N"       #'xkcd-prev ; evil-ish
-            "r"       #'xkcd-rand
-            "a"       #'xkcd-rand ; because image-rotate can interfere
-            "t"       #'xkcd-alt-text
-            "q"       #'xkcd-kill-buffer
-            "o"       #'xkcd-open-browser
-            "e"       #'xkcd-open-explanation-browser
-            ;; extras
-            "s"       #'+xkcd-find-and-view
-            "/"       #'+xkcd-find-and-view
-            "y"       #'+xkcd-copy))
-
-#+END_SRC
-#+BEGIN_SRC elisp :tangle yes
-
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
-(defadvice! prompt-for-buffer (&rest _)
-  :after '(evil-window-split evil-window-vsplit)
-  (+ivy/switch-buffer))
-(setq +ivy-buffer-preview t)
-(map! :map evil-window-map
-      "SPC" #'rotate-layout)
-
-#+END_SRC
 
 ** Company
 It's nice to have completions almost all the time, in my opinion. Key strokes
