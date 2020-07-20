@@ -45,7 +45,7 @@ are just waiting to be saved!
   (setq company-show-numbers t)
 (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 #+END_SRC
-Now, the improvements from ~precident~ are mostly from remembering history, so
+
 let's improve that memory.
 #+BEGIN_SRC emacs-lisp
 (setq-default history-length 1000)
