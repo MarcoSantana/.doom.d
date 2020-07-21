@@ -1,13 +1,21 @@
-#+TITLE:
+#+TITLE
 ** Emoji
 Set a keymap to insert emojis
 #+BEGIN_SRC elisp :tangle yes
 (global-set-key (kbd "<f12>") 'emojify-insert-emoji)
 #+END_SRC
+
+
+
+
 ** Highlights and text decorations
 #+BEGIN_SRC elisp :tangle yes
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+END_SRC
+
+
+| highlight-indent-guides-mode | yas-minor-mode-on | hl-todo-mode | display-line-numbers-mode | highlight-numbers-mode | hl-line-mode | vi-tilde-fringe-mode |
+
 *** Beacon mode
 #+BEGIN_SRC elisp :tangle yes
 (beacon-mode 1)
@@ -19,11 +27,16 @@ Set a keymap to insert emojis
 
 #+END_SRC
 
+
+
+
 ** Theme
 
 #+BEGIN_SRC elisp :tangle yes
 (setq doom-theme 'doom-city-lights)
 #+END_SRC
+
+
 the user can controls the frame opacity by adding the below line
 #+begin_src elisp :tangle yes
  ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
@@ -31,42 +44,29 @@ the user can controls the frame opacity by adding the below line
  (set-frame-parameter (selected-frame) 'alpha '(85 . 50))
  (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
 #+end_src
+
+
+
 *** Fonts
 #+BEGIN_SRC elisp :tangle yes
 (setq doom-font (font-spec :family "Fira Code" :size 19))
 #+END_SRC
+
+
+
 *** Line number
 #+BEGIN_SRC elisp :tangle yes
 (setq display-line-numbers-type 'relative)
 #+END_SRC
-** Reading
-Use emacs for reading stuff
 
-** Company
-It's nice to have completions almost all the time, in my opinion. Key strokes
-are just waiting to be saved!
-#+BEGIN_SRC emacs-lisp :tangle yes
-(after! company
-  (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
-(add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
-#+END_SRC
 
-let's improve that memory.
-#+BEGIN_SRC emacs-lisp
-(setq-default history-length 1000)
-(setq-default prescient-history-length 1000)
-#+END_SRC
-*** Plain Text
-~ispell~ is nice, let's have it in ~text~, ~markdown~, and ~GFM~.
-#+BEGIN_SRC emacs-lisp
-(set-company-backend! '(text-mode
-                        markdown-mode
-                        gfm-mode)
-  '(:seperate company-ispell
-              company-files
-              company-yasnippet))
-#+END_SRC
+
+
 
 ** Org
+*** Journal
+#+begin_src emacs-lisp :tangle yes
+(setq org-journal-dir "~/Dropbox/Logs/")
+(setq org-journal-date-format "%A, %d %B %Y")
+(require 'org-journal)
+#+end_src

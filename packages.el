@@ -54,3 +54,4 @@
 (package! highlight-indent-guides)
 (package! powershell)
 (package! xkcd)
+(package! org-journal)
