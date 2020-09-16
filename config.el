@@ -5,8 +5,8 @@
 ;; (setq doom-theme 'doom-city-lights)
 (setq doom-theme 'doom-nord)
 
- (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
- ;; (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
+ (set-frame-parameter (selected-frame) 'alpha '(95 . 50))
+ (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
 
 (setq doom-font (font-spec :family "Monoid NF" :size 18))
 
