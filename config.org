@@ -22,7 +22,7 @@ Set a keymap to insert emojis
 
 the user can controls the frame opacity by adding the below line
 #+begin_src elisp :tangle yes
- ;; (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
+ (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
  ;; (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 #+end_src
 
@@ -60,7 +60,7 @@ the user can controls the frame opacity by adding the below line
 (require 'org-journal)
 #+end_src
 
-** Engine mode
+*** Engine mode
 #+BEGIN_SRC elisp :tangle yes
 (require 'engine-mode)
 (engine-mode t)

@@ -1,18 +1,3 @@
-(setq org-journal-dir "~/Dropbox/Logs/")
-(setq org-journal-date-format "%A, %d %B %Y")
-(setq org-journal-file-type "weekly")
-(setq org-journal-file-format "%Y%m.org")
-(setq org-journal-enable-agenda-integration t)
-(map! :leader
-      (:prefix-map ("a" . "applications")
-       (:prefix ("j" . "journal")
-        :desc "New journal entry" "j" #'org-journal-new-entry
-        :desc "Search journal entry" "s" #'org-journal-search)))
-
-(require 'org-journal)
-
-(add-hook 'vue-mode-hook #'lsp!)
-
 (global-set-key (kbd "<f12>") 'emojify-insert-emoji)
 
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -20,8 +5,8 @@
 ;; (setq doom-theme 'doom-city-lights)
 (setq doom-theme 'doom-nord)
 
-;; (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
-;; (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
+ (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
+ ;; (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 
 (setq doom-font (font-spec :family "Monoid NF" :size 18))
 
@@ -63,3 +48,18 @@
 
 (defengine youtube
   "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+
+(setq org-journal-dir "~/Dropbox/Logs/")
+(setq org-journal-date-format "%A, %d %B %Y")
+(setq org-journal-file-type "weekly")
+(setq org-journal-file-format "%Y%m.org")
+(setq org-journal-enable-agenda-integration t)
+(map! :leader
+      (:prefix-map ("a" . "applications")
+       (:prefix ("j" . "journal")
+        :desc "New journal entry" "j" #'org-journal-new-entry
+        :desc "Search journal entry" "s" #'org-journal-search)))
+
+(require 'org-journal)
+
+(add-hook 'vue-mode-hook #'lsp!)
