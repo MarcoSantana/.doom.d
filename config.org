@@ -5,51 +5,32 @@ Set a keymap to insert emojis
 (global-set-key (kbd "<f12>") 'emojify-insert-emoji)
 #+END_SRC
 
-
-
-
 ** Highlights and text decorations
 #+BEGIN_SRC elisp :tangle yes
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+END_SRC
 
-
-| highlight-indent-guides-mode | yas-minor-mode-on | hl-todo-mode | display-line-numbers-mode | highlight-numbers-mode | hl-line-mode | vi-tilde-fringe-mode |
-
-*** Beacon mode
-#+BEGIN_SRC elisp :tangle yes
-(beacon-mode 1)
-(setq beacon-blink-when-focused 1)
-(setq beacon-blink-when-window-scrolls 1)
-(setq beacon-blink-when-point-moves-vertically 1)
-(setq beacon-blink-when-point-moves-horizontally 1)
-(setq beacon-push-mark 35)
-
-#+END_SRC
-
-
-
-
-** Theme
+** Appereance
 
 #+BEGIN_SRC elisp :tangle yes
-(setq doom-theme 'doom-city-lights)
+;; (setq doom-theme 'doom-city-lights)
+(setq doom-theme 'doom-nord)
 #+END_SRC
 
+#+RESULTS:
+: doom-nord
 
 the user can controls the frame opacity by adding the below line
 #+begin_src elisp :tangle yes
- ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
- ;;(set-frame-parameter (selected-frame) 'alpha <both>)
- (set-frame-parameter (selected-frame) 'alpha '(90 . 50))
- (add-to-list 'default-frame-alist '(alpha . (85 . 50)))
+ ;; (set-frame-parameter (selected-frame) 'alpha '(80 . 50))
+ ;; (add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 #+end_src
 
 
 
 *** Fonts
 #+BEGIN_SRC elisp :tangle yes
-(setq doom-font (font-spec :family "Fira Code" :size 19))
+(setq doom-font (font-spec :family "Monoid NF" :size 18))
 #+END_SRC
 
 
@@ -59,9 +40,8 @@ the user can controls the frame opacity by adding the below line
 (setq display-line-numbers-type 'relative)
 #+END_SRC
 
-
-
-
+#+RESULTS:
+: relative
 
 ** Org
 *** Journal
@@ -69,37 +49,58 @@ the user can controls the frame opacity by adding the below line
 (setq org-journal-dir "~/Dropbox/Logs/")
 (setq org-journal-date-format "%A, %d %B %Y")
 (setq org-journal-file-type "weekly")
-(setq org-journal-file-format "%Y%m%W.org")
+(setq org-journal-file-format "%Y%m.org")
 (setq org-journal-enable-agenda-integration t)
-#+end_src
+(map! :leader
+      (:prefix-map ("a" . "applications")
+       (:prefix ("j" . "journal")
+        :desc "New journal entry" "j" #'org-journal-new-entry
+        :desc "Search journal entry" "s" #'org-journal-search)))
 
-org-journal-file-header - a string that will be inserted at the top of every new journal file. If a string, it will be passed to `format-time-string` along the time value of the new journal entry. It can also be a function expecting a time value.
-#+begin_src emacs-lisp :tangle yes
-(defun org-journal-file-header-func (time)
-  "Custom function to create journal header."
-  (concat
-    (pcase org-journal-file-type
-      (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything")
-      (`weekly "#+TITLE: Weekly Journal\n#+STARTUP: folded")
-      (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded")
-      (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded"))))
-
-(setq org-journal-file-header 'org-journal-file-header-func)
-#+end_src
-
-Kill journal buffer after saving buffer (By @dhruvparamhans)
-#+begin_src emacs-lisp :tangle yes
-(defun org-journal-save-entry-and-exit()
-  "Simple convenience function.
-  Saves the buffer of the current day's entry and kills the window
-  Similar to org-capture like behavior"
-  (interactive)
-  (save-buffer)
-  (kill-buffer-and-window))
-(define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
-#+end_src
-
-And we finish
-#+begin_src emacs-lisp :tangle yes
 (require 'org-journal)
 #+end_src
+
+** Engine mode
+#+BEGIN_SRC elisp :tangle yes
+(require 'engine-mode)
+(engine-mode t)
+(defengine duckduckgo
+  "https://duckduckgo.com/?q=%s"
+  :keybinding "d")
+
+(defengine github
+  "https://github.com/search?ref=simplesearch&q=%s")
+
+(defengine google
+  "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"
+  :keybinding "g")
+
+(defengine google-images
+  "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
+
+(defengine google-maps
+  "http://maps.google.com/maps?q=%s"
+  :docstring "Mappin' it up.")
+
+(defengine stack-overflow
+  "https://stackoverflow.com/search?q=%s")
+
+(defengine wikipedia
+  "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+  :keybinding "w"
+  :docstring "Searchin' the wikis.")
+
+(defengine wiktionary
+  "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
+
+(defengine wolfram-alpha
+  "http://www.wolframalpha.com/input/?i=%s")
+
+(defengine youtube
+  "http://www.youtube.com/results?aq=f&oq=&search_query=%s")
+#+END_SRC
+** Vue
+- Vue support as in [[https://learnings.desipenguin.com/post/vuejs-with-doom-emacs-nvm/][vue js with doom emacs]]
+  #+begin_src emacs-lisp :tangle yes
+(add-hook 'vue-mode-hook #'lsp!)
+  #+end_src

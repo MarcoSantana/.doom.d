@@ -53,3 +53,5 @@
 (package! beacon)
 (package! highlight-indent-guides)
 (package! org-journal)
+(package! engine-mode)
+(package! vue-mode)
